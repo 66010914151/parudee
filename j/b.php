@@ -8,9 +8,9 @@
 <body>
 <h1>ข้อมูลจังหวัด--พาฤดี ปูนจีน(จ๋า)</h1>
 
-<form method="post" action="">
-	ชื่อจังหวัด<input type="text" name="rname" autofocus required><br>
-    รูปภาพ<input type="file" name="primage"><br>
+<form method="post" action=""enctype="multipart/form-data">
+	ชื่อจังหวัด<input type="text" name="pname" autofocus required><br>
+    รูปภาพ<input type="file" name="pimage"><br>
     ชื่อภาค<br>
     <select name="rid">
 <?php
@@ -32,9 +32,15 @@ include_once("connectdb.php");
 <?php
 if(isset($_POST['Submit'])){
 	include_once("connectdb.php");
-	$rname = $_POST['rname'];
-	$sql2 = "INSERT INTO `regions` VALUES (NULL, '{$rname}')";
+	
+	$pname = $_POST['pname'];
+	$ext = pathinfo($_FILES['pimage']['name'],PATHINFO_EXTENSION);
+	$rid = $_POST['rid'];
+	
+	$sql2 = "INSERT INTO `provinces` VALUES (NULL, '{$pname}','{$ext}','{$rid}')";
 	mysqli_query($conn,$sql2) or die ("insert ไม่ได้");
+	$pic_id = mysqli_insert_id($conn);
+	copy($_FILES['pimage']['tmp_name'],"images/".$pic_id.".".$ext);
 }
 ?>
 

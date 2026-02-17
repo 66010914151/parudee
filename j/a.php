@@ -26,8 +26,9 @@ if(isset($_POST['Submit'])){
 
 <table border="1">
 	<tr>
-    	<td>รหัสภาค</td>
-		<td>ชื่อภาค</td>
+    	<th>รหัสภาค</th>
+		<th>ชื่อภาค</th>
+        <th>ลบ</th>
     </tr>
 <?php
 	include_once("connectdb.php");
@@ -40,6 +41,7 @@ if(isset($_POST['Submit'])){
 	<tr>
     	<td><?php echo $data['r_id'];?></td>
 		<td><?php echo $data['r_name'];?></td>
+     	<td width="50" align="center"><a href="delete_regions.php?id=<?php echo $data['r_id'];?>" onClick ="return confirm('ยืนยันการลบ?')"><img src="images/dele.jpg" width="20">	</td>
     </tr>
 <?php } ?>
  
